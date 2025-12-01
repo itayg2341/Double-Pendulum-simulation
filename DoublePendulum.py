@@ -70,7 +70,8 @@ for i in range(n):
 def animate(j):
     for i in range(n):
         # Update pendulum rods
-        lines[i].set_data([0, x1[i, j], x2[i, j]], [0, y1[i, j], y2[i, j]])
+        lines[i].set_data([0, x1[i, j]], [0, y1[i, j]])
+        lines[i].set_data([x1[i, j], x2[i, j]], [y1[i, j], y2[i, j]])
         
         # Update trails
         start = max(0, j - trail)
@@ -87,11 +88,5 @@ def animate(j):
 ani = animation.FuncAnimation(fig, animate, frames=len(T), 
                               interval=step*1000, blit=True, repeat=True)
 
-# Save animation to file
-Writer = animation.writers['ffmpeg']
-writer = Writer(fps=60, metadata=dict(artist='Double Pendulum Simulation'), bitrate=1800)
-ani.save('double_pendulum.mp4', writer=writer)
-
 plt.title('Double Pendulum Simulation')
-plt.close()  # Close the figure to prevent it from showing in headless environment
-print("Animation saved as 'double_pendulum.mp4'")
+plt.show()
